@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== 主题变量（默认深色） ===== */
+:root,
+[data-theme="dark"] {
+  --bg: #06051A;
+  --bg-elev: #161430;
+  --text: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.6);
+  --text-soft: rgba(255, 255, 255, 0.4);
+  --border: rgba(255, 255, 255, 0.10);
+  --glass-bg: rgba(22, 20, 48, 0.6);
+  --glass-border: rgba(255, 216, 107, 0.12);
+  --surface-1: rgba(255, 255, 255, 0.05);
+  --surface-2: rgba(255, 255, 255, 0.10);
+  --tooltip-bg: #1f1c44;
+  --tooltip-text: #ffffff;
+}
+
+[data-theme="light"] {
+  --bg: #F4F1FA;
+  --bg-elev: #ffffff;
+  --text: #1a1530;
+  --text-muted: rgba(26, 21, 48, 0.65);
+  --text-soft: rgba(26, 21, 48, 0.45);
+  --border: rgba(26, 21, 48, 0.10);
+  --glass-bg: rgba(255, 255, 255, 0.78);
+  --glass-border: rgba(156, 107, 255, 0.18);
+  --surface-1: rgba(26, 21, 48, 0.04);
+  --surface-2: rgba(26, 21, 48, 0.08);
+  --tooltip-bg: #ffffff;
+  --tooltip-text: #1a1530;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color .25s ease, color .25s ease;
+}
+
+* { box-sizing: border-box; }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-thumb { background: var(--surface-2); border-radius: 6px; }
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  color: var(--text);
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 10px 18px; border-radius: 999px; font-weight: 500;
+  transition: all .2s; cursor: pointer; user-select: none;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #FFD86B, #FF9C5B);
+  color: #1a0f00;
+  box-shadow: 0 8px 24px rgba(255, 216, 107, 0.35);
+}
+.btn-primary:hover { transform: translateY(-1px); }
+.btn-ghost {
+  background: var(--surface-1);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.input {
+  width: 100%; padding: 12px 16px; border-radius: 12px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  color: var(--text); outline: none;
+}
+.input:focus { border-color: #FFD86B; }
+
+/* ===== 星空背景 ===== */
+.starfield {
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(156, 107, 255, 0.25), transparent 50%),
+    radial-gradient(ellipse at 80% 30%, rgba(91, 168, 255, 0.2), transparent 50%),
+    radial-gradient(ellipse at 50% 90%, rgba(255, 216, 107, 0.12), transparent 50%),
+    #06051A;
+  z-index: -2;
+}
+[data-theme="light"] .starfield {
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(156, 107, 255, 0.18), transparent 55%),
+    radial-gradient(ellipse at 80% 30%, rgba(91, 168, 255, 0.18), transparent 55%),
+    radial-gradient(ellipse at 50% 90%, rgba(255, 156, 91, 0.18), transparent 55%),
+    #F4F1FA;
+}
+.stars-layer {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, #fff, transparent),
+    radial-gradient(1px 1px at 70% 60%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 40% 80%, #FFD86B, transparent),
+    radial-gradient(1px 1px at 90% 20%, #fff, transparent),
+    radial-gradient(2px 2px at 10% 70%, #9C6BFF, transparent),
+    radial-gradient(1px 1px at 60% 10%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 30% 50%, #5BA8FF, transparent),
+    radial-gradient(1px 1px at 85% 75%, #fff, transparent);
+  background-size: 100% 100%;
+  opacity: 0.7;
+  animation: twinkle 4s ease-in-out infinite;
+}
+[data-theme="light"] .stars-layer { opacity: 0.25; mix-blend-mode: multiply; }
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #FFD86B, #FF9C5B);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ===== 浅色模式：覆盖 Tailwind 工具类 ===== */
+[data-theme="light"] .text-white { color: var(--text) !important; }
+[data-theme="light"] .text-white\/30,
+[data-theme="light"] .text-white\/40 { color: var(--text-soft) !important; }
+[data-theme="light"] .text-white\/50,
+[data-theme="light"] .text-white\/60,
+[data-theme="light"] .text-white\/70,
+[data-theme="light"] .text-white\/80,
+[data-theme="light"] .text-white\/90 { color: var(--text-muted) !important; }
+
+[data-theme="light"] .bg-white\/5 { background-color: rgba(26, 21, 48, 0.04) !important; }
+[data-theme="light"] .bg-white\/10 { background-color: rgba(26, 21, 48, 0.06) !important; }
+[data-theme="light"] .bg-white\/20 { background-color: rgba(26, 21, 48, 0.10) !important; }
+[data-theme="light"] .border-white\/5 { border-color: rgba(26, 21, 48, 0.06) !important; }
+[data-theme="light"] .border-white\/10 { border-color: rgba(26, 21, 48, 0.08) !important; }
+[data-theme="light"] .border-white\/20 { border-color: rgba(26, 21, 48, 0.12) !important; }
+
+/* 深底渐变上的白字保留（带 from-glimmer-* 的渐变卡） */
+[data-theme="light"] [class*="bg-gradient"] .text-white,
+[data-theme="light"] [class*="bg-gradient"].text-white { color: #ffffff !important; }
+
+/* recharts tooltip 全局兜底 */
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  background: var(--tooltip-bg) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 10px !important;
+  color: var(--tooltip-text) !important;
+}
+.recharts-tooltip-wrapper .recharts-default-tooltip * {
+  color: var(--tooltip-text) !important;
+}
